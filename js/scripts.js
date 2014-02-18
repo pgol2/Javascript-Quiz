@@ -1,18 +1,17 @@
 $(document).ready(function () {
 
-	var allQuestions = [{question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer:0}];
+	var allQuestions = [{question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer:0},
+						{question: "Drugie pytanie", choices: ["Odpowiedz1", "Odpowiedz1", "Odpowiedz1", "Odpowiedz1"], correctAnswer:0}];
 
-	var $question = $('#question');
-	$question.html(allQuestions[0].question);
+	var $questionhtml = $('#question');
 
-//	var answer = $('<li><input type="radio" name="answer" value="Example answer2" class="answer">Example answer1</li>');
-	
 	var $answers = $('#answers');
 
-
-	for(var i=0; i<allQuestions.length; i++) {
-		$question = allQuestions[i].question;
-		for(var j=0; j<allQuestions[i].choices.length; j++) {
+	for(var i in allQuestions) {
+		var $question = allQuestions[i].question;
+		console.log($question);
+		$questionhtml.html($question);
+		for(var j in allQuestions[i].choices) {
 			$answers.append('<li><input type="radio" name="answer" data-answer="' + j +'" value="' + allQuestions[i].choices[j] + '" class="answer">' + allQuestions[i].choices[j] + '</li>');
 		}
 		var correct = allQuestions[i].correctAnswer;
@@ -29,3 +28,10 @@ $(document).ready(function () {
 //obsluga wiekszej ilosci pytan
 //interaktywne menu po lewej
 //pare efektow z JQ
+
+
+// Quiz initiation
+  // beginning();
+  // generate_question();
+  // evaluate_answer();
+  // previous_question();
