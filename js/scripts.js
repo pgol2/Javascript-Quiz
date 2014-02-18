@@ -25,4 +25,7 @@ $(document).ready(function () {
 		});
 	}
 });
-//test
+//TO dop
+//obsluga wiekszej ilosci pytan
+//interaktywne menu po lewej
+//pare efektow z JQ
