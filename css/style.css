@@ -118,3 +118,10 @@ input[type='radio']{
 	bottom: 0;
 	right: 0;
 }
+#answers > li {
+	margin-left: 10px;
+	cursor: pointer;
+}
+#answers > li:hover {
+	color: gray;
+}
