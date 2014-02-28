@@ -30,6 +30,10 @@ function nextQuestion() {
     if(questionIndex < indexMax) {
         question = allQuestions[questionIndex].question;
         answers = allQuestions[questionIndex].choices;
+
+        if(questionIndex === indexMax-1) {
+            $nextButton.html('finish');
+        }
     } else {
         getScore();
     }
@@ -57,3 +61,11 @@ $nextButton.on('click', insertNextQuestion);
 $htmlAnswers.on('click', 'li', checkAnswer);
 
 });
+
+// Quiz initiation
+// beginning();
+// generate_question();
+// evaluate_answer();
+// previous_question();
+
+
