@@ -125,3 +125,10 @@ input[type='radio']{
 #answers > li:hover {
 	color: gray;
 }
+
+.prompt {
+    display: none;
+    font-style: italic;
+    font-size: 13px;   
+    color: #e20606;
+}
