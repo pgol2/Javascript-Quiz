@@ -1,7 +1,5 @@
 "use strict";
 $(document).ready(function () {
-
-
 //config
 var allQuestions = [{question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer: 0},
                     {question: "Drugie pytanie", choices: ["Odpowiedz1", "Odpowiedz1", "Odpowiedz1", "Odpowiedz1"], correctAnswer: 0},
@@ -52,6 +50,7 @@ function checkAnswer() {
 function getScore() {
     alert('twoj wynik to: ' + Math.round(correct/allQuestions.length * 100) + " %");
 }
+
 //main 
 appendQuestion();
 $nextButton.on('click', insertNextQuestion);
