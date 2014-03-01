@@ -40,18 +40,23 @@ function check() {
          $(".prompt").hide();
         getNextQuestion();
     } else {
-        promptUser("niestety zla odp", "red");
+        promptUser(false);
     }
 }
-function promptUser(message, color) {
+function promptUser(correct) {
     var $message = $(".prompt");
-    $message.css({color: color});
-    $message.html(message);
+    if(correct) {
+        $message.addClass("bg-success");
+        $message.html("Gratujacje!");
+    } else {
+        $message.addClass("bg-danger");
+        $message.html("Niestety - wybierz inna odp");
+    }
     $message.show();
 }
 
 function getScore() {
-    promptUser("koniec na dzis - gratulacje !", "green");
+    promptUser(true);
 }
 
 getNextQuestion();
