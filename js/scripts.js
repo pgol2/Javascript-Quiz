@@ -13,7 +13,8 @@ correctIndex = allQuestions[0].correctAnswer,   //index prawidlowej odp
 question = allQuestions[0].question,            //akutalna odpowiedz wyswietlana
 answers = allQuestions[0].choices,              //akutalne pytanie                        
 $htmlQuestion = $('#question'),
-$htmlAnswers = $('#answers');
+$htmlAnswers = $('#answers'),
+startTime = new Date();
 
 
 function getNextQuestion() {
@@ -46,8 +47,10 @@ function check() {
 function promptUser(correct) {
     var $message = $(".prompt");
     if(correct) {
+        var endTime = new Date();
+        $message.html("Gratujacjee! twoj czas to: " + Math.round((endTime - startTime)/1000) + " sekundy" );
         $message.addClass("bg-success");
-        $message.html("Gratujacje!");
+        $message.removeClass("bg-danger");
     } else {
         $message.addClass("bg-danger");
         $message.html("Niestety - wybierz inna odp");
