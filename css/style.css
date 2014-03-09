@@ -1,6 +1,15 @@
-
-html {
+.positioned {
     position: relative;
+}
+.red {
+    background-color: #fe8e96;
+}
+.green {
+    background-color: #bfe0a6;
+}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
 }
 #answers > li {
     margin-left: 10px;

@@ -49,10 +49,10 @@ function promptUser(correct) {
     if(correct) {
         var endTime = new Date();
         $message.html("Gratujacjee! twoj czas to: " + Math.round((endTime - startTime)/1000) + " sekundy" );
-        $message.addClass("bg-success");
-        $message.removeClass("bg-danger");
+        $message.addClass("green");
+        $message.removeClass("red");
     } else {
-        $message.addClass("bg-danger");
+        $message.addClass("red");
         $message.html("Niestety - wybierz inna odp");
     }
     $message.show();
