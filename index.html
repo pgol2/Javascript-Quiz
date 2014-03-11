@@ -14,19 +14,23 @@
   		<div class="container">
   			<h1 class="text-center">Prosty Quiz</h1>
 
-  			
-  				<h2 id="question">This is sample question</h2>
-  					<div id="answersContainer">
-  						<ul id="answers">
-
-
-  						</ul>
-  					</div>
+             <script id="quizMain" type="x-handlebars-template">
+                <h2 id="question">{{question}}</h2>
+                <div id="answersContainer">
+                  <ul id="answers">
+                      {{#each choices}}
+                        <li>{{this}}</li>
+                      {{/each}}
+                  </ul>
+                </div>
+            </script>
+  					
   					<div class="prompt">
   						<p></p>
-  					</div>
-  		</div>
+            </div>
 
+  		</div>
+      <button id="next">next</button>
   			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="js/handlebars.js"></script>
   			<script src="js/scripts.js"></script>

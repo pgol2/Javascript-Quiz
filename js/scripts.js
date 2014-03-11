@@ -1,73 +1,32 @@
 "use strict";
 
-$(document).ready(function () {
-
-
-//config
-var allQuestions = [{question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer: 0},
-                    {question: "Drugie pytanie", choices: ["Odpowiedz1", "Odpowiedz1", "Odpowiedz1", "Odpowiedz1"], correctAnswer: 0},
-                    {question: "Stolica Polski to? ", choices: ["Krakow", "Skrobow", "Warszawa", "Niestety Warszawa"], correctAnswer: 3}],
-questionIndex = 0,                              //index aktualnego pytania 
-indexMax = allQuestions.length,                 //maksymalny index pytan 
-correctIndex = allQuestions[0].correctAnswer,   //index prawidlowej odp
-question = allQuestions[0].question,            //akutalna odpowiedz wyswietlana
-answers = allQuestions[0].choices,              //akutalne pytanie                        
-$htmlQuestion = $('#question'),
-$htmlAnswers = $('#answers'),
-startTime = new Date();
-
-
-function getNextQuestion() {
-    if(questionIndex < indexMax) {
-        correctIndex = allQuestions[questionIndex].correctAnswer;
-        question = allQuestions[questionIndex].question;
-        //console.log("poprawna" + correctIndex);
-        $htmlQuestion.html(question);
-
-        answers = allQuestions[questionIndex].choices;
-        var outAnswers = ""; 
-        for(var i in answers) {
-            outAnswers += '<li data-answer="' + i + '">' + answers[i] + "</li>"; 
-        }
-        $htmlAnswers.html(outAnswers);
-        questionIndex++;
-    } else {
-        getScore();
-    }
-}
-
-function check() {
-    if($(this).data('answer') === correctIndex) {
-         $(".prompt").hide();
-        getNextQuestion();
-    } else {
-        promptUser(false);
-    }
-}
-function promptUser(correct) {
-    var $message = $(".prompt");
-    if(correct) {
-        var endTime = new Date();
-        $message.html("Gratujacjee! twoj czas to: " + Math.round((endTime - startTime)/1000) + " sekundy" );
-        $message.addClass("green");
-        $message.removeClass("red");
-    } else {
-        $message.addClass("red");
-        $message.html("Niestety - wybierz inna odp");
-    }
-    $message.show();
-}
-
-function getScore() {
-    promptUser(true);
-}
-
-getNextQuestion();
-$htmlAnswers.on('click', 'li', check);
+$(document).ready(function () { 
+    $('.container').append(html);
+    $('#next').on('click', function() {
+        getNextQuestion();      
+    });    
 });
 
+var source = $('#quizMain').html();
+var template = Handlebars.compile(source);
 
-// To do
-// -object
-// -bootstrap & handlebars
+var allQuestions = [{question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer: 0},
+{question: "Drugie pytanie", choices: ["Odpowiedz1", "Odpowiedz1", "Odpowiedz1", "Odpowiedz1"], correctAnswer: 0},
+{question: "Stolica Polski to? ", choices: ["Krakow", "Skrobow", "Warszawa", "Niestety Warszawa"], correctAnswer: 3}],
+questionIndex = 0,
+data = allQuestions[questionIndex],
+html = template(data);
 
+function getNextQuestion() {
+    if(questionIndex < allQuestions.length-1) {
+     questionIndex++;
+     html = template(allQuestions[questionIndex]);
+     $('.container').html(html);
+ } else {
+    $('.container').html("koniec pytań!");
+}
+}
+
+//check()
+//getScore()
+//promptUser()
