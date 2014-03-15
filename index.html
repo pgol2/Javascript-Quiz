@@ -17,20 +17,19 @@
              <script id="quizMain" type="x-handlebars-template">
                 <h2 id="question">{{question}}</h2>
                 <div id="answersContainer">
-                  <ul id="answers">
+                  <ol type="a" id="answers">
                       {{#each choices}}
-                        <li>{{this}}</li>
+                        <li data-answer="{{@index}}">{{this}}</li>
                       {{/each}}
-                  </ul>
+                  </ol>
                 </div>
             </script>
   					
   					<div class="prompt">
-  						<p></p>
+  						
             </div>
 
   		</div>
-      <button id="next">next</button>
   			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="js/handlebars.js"></script>
   			<script src="js/scripts.js"></script>
