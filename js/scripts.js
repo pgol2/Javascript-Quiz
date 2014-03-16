@@ -27,7 +27,7 @@ function getNextQuestion() {
     if(questionIndex < allQuestions.length-1) {
          questionIndex++;
          html = template(allQuestions[questionIndex]);
-         $('.container').html(html);
+         $('.container').html(html).fadeIn();
     } else {
         var endTime = new Date();
         $('.container').html("koniec pytań twoj czas to: " + (endTime - startTime)/1000);
@@ -44,9 +44,42 @@ function checkAnswer() {
     }
 }
 
+// // blocking code 
+function getQuestions2 () {
+    var jqXHR = $.ajax({
+        url: 'questions.json'
+        ,async: false
+    });
+    return JSON.parse(jqXHR.responseText);
+}
+
+//non blocking - still doesn't work 
+function getQuestions () {
+    var json = null;
+    $.ajax({
+        url: 'questions.json',
+        success: function(data) {
+            json = data;
+        }
+    });
+    return json;
+}
+
+function getQuestions3 () {
+    var obj = null;
+    $.ajax({
+        url: 'questions.json'
+    })
+    .done(function (data) {
+        obj = data;
+        console.log(data[0].question);
+    });
+}
+
+
 $(document).ready(function () { 
     $('.container').append(html);
-    $('.container').on('click','li', checkAnswer);  
+    $('.container').on('click','li', checkAnswer);
 });
 //check()
 //getScore()
