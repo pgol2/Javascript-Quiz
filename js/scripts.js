@@ -1,86 +1,84 @@
 "use strict";
 
-
-var allQuestions = [
-    {
-        question: "Who is Prime Minister of the United Kingdom?", 
-        choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], 
-        correctAnswer: 0
+/*
+Quiz {
+    config: {
+        source: "templejt",
+        allQuestions: "pytania",
+        container: "container dla templatow"
     },
-    {question: "Drugie pytanie", 
-    choices: ["Odpowiedz1", "Odpowiedz1", "Odpowiedz1", "Odpowiedz1"], 
-    correctAnswer: 0
+    questionIndex, // domyslnie 0 
+    htmlOut,
+    startTime,
+    endTime,
+    compiledHtml,
+    init(config),
+    bindTemplates(),
+}*
+*/
+///////////////////////
+
+var Quiz = {
+    init: function(config) {
+        this.config = config;
+        this.questionIndex = 0;
+        this.compiledHtml = Handlebars.compile(this.config.source);
+        this.htmlOut = this.compiledHtml(this.config.allQuestions[this.questionIndex]); //sorry for this one - temporary
+        this.bindEvents();
+        this.config.container.append(this.htmlOut);
+        this.startTime = new Date();
     },
-    {question: "Stolica Polski to? ", 
-    choices: ["Krakow", "Skrobow", "Warszawa", "Niestety Warszawa"], 
-    correctAnswer: 3
-    }
-],
-source = $('#quizMain').html(),
-template = Handlebars.compile(source),
-questionIndex = 0,
-data = allQuestions[questionIndex],
-html = template(data),
-startTime  = new Date();
-
-function getNextQuestion() {
-    if(questionIndex < allQuestions.length-1) {
-         questionIndex++;
-         html = template(allQuestions[questionIndex]);
-         $('.container').html(html).fadeIn();
-    } else {
-        var endTime = new Date();
-        $('.container').html("koniec pytań twoj czas to: " + (endTime - startTime)/1000);
-
-    }
-}
-function checkAnswer() {
-    var answer = $(this);
-    if(answer.data('answer') == allQuestions[questionIndex].correctAnswer) {
-        console.log('correct');
-        getNextQuestion();
-    } else {
-        console.log('nope');
-    }
-}
-
-// // blocking code 
-function getQuestions2 () {
-    var jqXHR = $.ajax({
-        url: 'questions.json'
-        ,async: false
-    });
-    return JSON.parse(jqXHR.responseText);
-}
-
-//non blocking - still doesn't work 
-function getQuestions () {
-    var json = null;
-    $.ajax({
-        url: 'questions.json',
-        success: function(data) {
-            json = data;
+    bindEvents: function() {
+        this.config.container.on('click', 'li', this.checkAnswer);
+    },
+    getNextQuestion: function() {
+        if(this.questionIndex < this.config.allQuestions.length-1){
+            this.questionIndex++;
+            this.htmlOut = this.compiledHtml(this.config.allQuestions[this.questionIndex]);
+            $('.container').html(this.htmlOut);
+        } else {
+            var endTime = new Date();
+            $('.container').html("koniec pytan twoj czas to: " + ( endTime- this.startTime)/1000);
         }
-    });
-    return json;
+    },
+    checkAnswer: function() { // this - czyli klikniety link 
+        var that = Quiz;
+        if($(this).data('answer') == Quiz.config.allQuestions[Quiz.questionIndex].correctAnswer) {
+            console.log('correct');
+            that.getNextQuestion();
+        } else {
+            console.log('nope');
+            alert('zła odpowiedź, popraw się!');
+        }
+    }
+
 }
 
-function getQuestions3 () {
-    var obj = null;
-    $.ajax({
-        url: 'questions.json'
-    })
-    .done(function (data) {
-        obj = data;
-        console.log(data[0].question);
-    });
+var allQuestions = [        //objekt ze wszystkimi pytaniami
+{
+    question: "Who is Prime Minister of the United Kingdom?", 
+    choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], 
+    correctAnswer: 0
+},
+{question: "Drugie pytanie", 
+choices: ["Odpowiedz1", "Odpowiedz1", "Odpowiedz1", "Odpowiedz1"], 
+correctAnswer: 0
+},
+{question: "Stolica Polski to? ", 
+choices: ["Krakow", "Skrobow", "Warszawa", "Niestety Warszawa"], 
+correctAnswer: 3
 }
+];
 
 
-$(document).ready(function () { 
-    $('.container').append(html);
-    $('.container').on('click','li', checkAnswer);
+
+
+$(document).ready(function() {
+    Quiz.init({
+        source: $('#quizMain').html(),
+        allQuestions: allQuestions,
+        container: $('.container')
+    });
+
 });
-//check()
-//getScore()
-//promptUser()
+
