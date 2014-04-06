@@ -34,6 +34,7 @@ var Quiz = {
     },
     bindEvents: function() {
         this.config.container.on('click', 'li', this.checkAnswer);
+        $('#changeName').on('click', this.changeUserName);
     },
     getNextQuestion: function() {
         if(this.questionIndex < this.config.allQuestions.length-1){
@@ -72,8 +73,16 @@ var Quiz = {
             name = prompt("What's your name?  ", "type here ");
             localStorage.setItem('username', name);
         } else {
-            alert("hello " + localStorage.getItem('username') );
+            $('.helloMessage').html("hello " + localStorage.getItem('username')).slideDown("slow");
         }
+    },
+    changeUserName: function(e) {
+        console.log('change name');
+        e.preventDefault();
+        var name = "";
+        name = prompt("What's your name? ", "type here");
+        localStorage.setItem('username', name);
+        $('.helloMessage').html("hello " + localStorage.getItem('username')).slideDown("slow");
     }
 
 }

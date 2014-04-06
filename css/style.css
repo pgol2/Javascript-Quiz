@@ -1,3 +1,6 @@
+body {
+    font-size: 22px;
+}
 .positioned {
     position: relative;
 }
@@ -10,6 +13,8 @@
 .container {
     max-width: 600px;
     margin: 0 auto;
+    padding: 20px;
+    padding-top: 0;
 }
 #answers > li {
     margin-left: 10px;
@@ -22,5 +27,8 @@
 .prompt {
     display: none;
     font-style: italic;
-    font-size: 13px;   
+    font-size: 2em;   
+}
+.hide {
+    display: none;
 }

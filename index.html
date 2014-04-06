@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="utf-8">
 	<title>Simple quiz</title>
   <link href="css/normalize.css" rel="stylesheet">
@@ -8,8 +9,8 @@
 </head>
 <body>
   <section class="container">
-   <h1 class="text-center">Simple Quiz</h1>
-
+   <h1 class="text-center">Simple Quiz</h1><a href="#" id="changeName">change name</a>
+   <div class="helloMessage hide"></div>
    <script id="quizMain" type="x-handlebars-template">
     <h2 id="question">{{question}}</h2>
     <article id="answersContainer">
@@ -20,6 +21,7 @@
       </ol>
     </article>
   </script>
+  <div class="prompt">this is sample text</div>
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/handlebars.js"></script>
