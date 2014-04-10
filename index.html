@@ -8,20 +8,26 @@
   <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-  <section class="container">
-   <h1 class="text-center">Simple Quiz</h1><a href="#" id="changeName">change name</a>
-   <div class="helloMessage hide"></div>
-   <script id="quizMain" type="x-handlebars-template">
+<section id="wrapper" class="positioned">
+  <article class="container">
+    <h1 class="text-center">Simple Quiz</h1>
+    <div class="user hide">
+      <a href="#" id="changeName">change name</a>
+      <div class="helloMessage"></div>
+    </div>
+    <script id="quizMain" type="x-handlebars-template">
     <h2 id="question">{{question}}</h2>
-    <article id="answersContainer">
-      <ol type="a" id="answers">
-        {{#each choices}}
-        <li data-answer="{{@index}}">{{this}}</li>
-        {{/each}}
-      </ol>
-    </article>
-  </script>
-  <div class="prompt">this is sample text</div>
+      <div id="answersContainer">
+        <ol type="a" id="answers">
+          {{#each choices}}
+          <li data-answer="{{@index}}">{{this}}</li>
+          {{/each}}
+        </ol>
+      </div>
+    </script>
+  </article>
+
+<div class="prompt">try again</div>
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/handlebars.js"></script>

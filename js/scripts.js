@@ -34,26 +34,43 @@ var Quiz = {
     },
     bindEvents: function() {
         this.config.container.on('click', 'li', this.checkAnswer);
-        $('#changeName').on('click', this.changeUserName);
+        $('#changeName').on('click', this.events.changeUserName);
+        window.addEventListener("popstate", this.events.prevUrl);
+
     },
     getNextQuestion: function() {
         if(this.questionIndex < this.config.allQuestions.length-1){
             this.questionIndex++;
             this.htmlOut = this.compiledHtml(this.config.allQuestions[this.questionIndex]);
+            //update url
+            //history.pushState(null, null, this.questionIndex);
             $('.container').html(this.htmlOut);
         } else {
             var endTime = new Date();
             $('.container').html("koniec pytan twoj czas to: " + ( endTime- this.startTime)/1000 );
         }
     },
-    checkAnswer: function() { // this - czyli klikniety link 
+    getQuestion: function(index){
+        console.log(this.questionIndex);
+        if( (index === this.questionIndex) || index < 0 ) return;
+        if(index < this.config.allQuestions.length-1) {
+            this.questionIndex = index;
+            this.htmlOut = this.compiledHtml(this.config.allQuestions[this.questionIndex]);
+            $('.container').html(this.htmlOut);
+            //update url
+            history.pushState(null, null, this.questionIndex);
+        }
+    }
+    , checkAnswer: function() { // this - czyli klikniety link 
         var that = Quiz;
+        $('.prompt').hide();
         if($(this).data('answer') === Quiz.config.allQuestions[Quiz.questionIndex].correctAnswer) {
             console.log('correct');
+
             that.getNextQuestion();
         } else {
+            $('.prompt').show();
             console.log('nope');
-            alert('zła odpowiedź, popraw się!');
         }
     },
     countVisits: function () {
@@ -73,16 +90,26 @@ var Quiz = {
             name = prompt("What's your name?  ", "type here ");
             localStorage.setItem('username', name);
         } else {
+            //add slide down on user here ! 
             $('.helloMessage').html("hello " + localStorage.getItem('username')).slideDown("slow");
         }
     },
-    changeUserName: function(e) {
-        console.log('change name');
-        e.preventDefault();
-        var name = "";
-        name = prompt("What's your name? ", "type here");
-        localStorage.setItem('username', name);
-        $('.helloMessage').html("hello " + localStorage.getItem('username')).slideDown("slow");
+    events: {
+        changeUserName: function(e) {
+            console.log('change name');
+            e.preventDefault();
+            var name = "";
+            name = prompt("What's your name? ", "type here");
+            localStorage.setItem('username', name);
+            $('.helloMessage').html("hello " + localStorage.getItem('username')).slideDown("slow");
+        }
+        ,prevUrl: function(e) {
+            console.log("works");
+           Quiz.getQuestion(this.questionIndex-1);
+        }
+        ,nextUrl: function(e) {
+            
+        }
     }
 
 }
