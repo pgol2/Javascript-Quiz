@@ -44,6 +44,7 @@ var Quiz = {
             this.htmlOut = this.compiledHtml(this.config.allQuestions[this.questionIndex]);
             //update url
             //history.pushState(null, null, this.questionIndex);
+            this.events.updateProgressBar();
             $('.container').html(this.htmlOut);
         } else {
             var endTime = new Date();
@@ -109,6 +110,10 @@ var Quiz = {
         }
         ,nextUrl: function(e) {
             
+        }
+        , updateProgressBar: function() {
+            
+            //$('progress').val(value);
         }
     }
 
