@@ -24,6 +24,7 @@ var Quiz = {
     init: function(config) {
         this.config = config;
         this.questionIndex = 0;
+        this.wrongAnswers = 0;
         this.compiledHtml = Handlebars.compile(this.config.source);
         this.htmlOut = this.compiledHtml(this.config.allQuestions[this.questionIndex]); //sorry for this one - temporary
         this.bindEvents();
@@ -39,16 +40,21 @@ var Quiz = {
 
     },
     getNextQuestion: function() {
+        var container = $('.container');
         if(this.questionIndex < this.config.allQuestions.length-1){
             this.questionIndex++;
             this.htmlOut = this.compiledHtml(this.config.allQuestions[this.questionIndex]);
             //update url
             //history.pushState(null, null, this.questionIndex);
             this.events.updateProgressBar();
-            $('.container').html(this.htmlOut);
+            container.html(this.htmlOut);
         } else {
             var endTime = new Date();
-            $('.container').html("koniec pytan twoj czas to: " + ( endTime- this.startTime)/1000 );
+            container.html("koniec pytan twoj czas to: " + ( endTime- this.startTime)/1000 );
+            if(!isNaN(this.wrongAnswers)){
+                container.append("</br>" + this.wrongAnswers + " razy odpowiedziałeś źle na pytaine");
+            }
+
         }
     },
     getQuestion: function(index){
@@ -71,6 +77,7 @@ var Quiz = {
             that.getNextQuestion();
         } else {
             $('.prompt').show();
+            Quiz.wrongAnswers++;
             console.log('nope');
         }
     },
@@ -82,7 +89,6 @@ var Quiz = {
             var value = parseInt(localStorage.getItem('visits'));
             value += 1;
             localStorage.setItem('visits', value);
-            console.log(localStorage.getItem('visits'));
         }
     },
     getUserName: function() {
