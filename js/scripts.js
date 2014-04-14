@@ -58,7 +58,6 @@ var Quiz = {
         }
     },
     getQuestion: function(index){
-        console.log(this.questionIndex);
         if( (index === this.questionIndex) || index < 0 ) return;
         if(index < this.config.allQuestions.length-1) {
             this.questionIndex = index;
@@ -72,19 +71,16 @@ var Quiz = {
         var that = Quiz;
         $('.prompt').hide();
         if($(this).data('answer') === Quiz.config.allQuestions[Quiz.questionIndex].correctAnswer) {
-            console.log('correct');
 
             that.getNextQuestion();
         } else {
             $('.prompt').show();
             Quiz.wrongAnswers++;
-            console.log('nope');
         }
     },
     countVisits: function () {
         if(localStorage.getItem('visits') === null) { //periwsza wizyta
             localStorage.setItem('visits', 1);
-            console.log(localStorage.getItem('visits'));
         } else {
             var value = parseInt(localStorage.getItem('visits'));
             value += 1;
@@ -103,7 +99,6 @@ var Quiz = {
     },
     events: {
         changeUserName: function(e) {
-            console.log('change name');
             e.preventDefault();
             var name = "";
             name = prompt("What's your name? ", "type here");
@@ -111,7 +106,6 @@ var Quiz = {
             $('.helloMessage').html("hello " + localStorage.getItem('username')).slideDown("slow");
         }
         ,prevUrl: function(e) {
-            console.log("works");
            Quiz.getQuestion(this.questionIndex-1);
         }
         ,nextUrl: function(e) {
@@ -148,13 +142,16 @@ var allQuestions = [        //objekt ze wszystkimi pytaniami
 }
 ];
 
-$(document).ready(function() {
-    Quiz.init({
-        source: $('#quizMain').html(),
-        allQuestions: allQuestions,
-        container: $('.container')
-    });
 
+
+$(document).ready(function() {
+    $.getJSON("questions.json", function(data) {
+       Quiz.init({
+        source: $('#quizMain').html(),
+        allQuestions: data,
+        container: $('.container')
+        }); 
+    });
 });
 
 

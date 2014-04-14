@@ -1,32 +1,22 @@
-[
-    {
-        "question": "Who is Prime Minister of the United Kingdom?",
-        "choices": [
-            "David Cameron",
-            "Gordon Brown",
-            "Winston Churchill",
-            "Tony Blair"
-        ],
-        "correctAnswer": 0
-    },
-    {
-        "question": "Drugie pytanie",
-        "choices": [
-            "Odpowiedz1",
-            "Odpowiedz1",
-            "Odpowiedz1",
-            "Odpowiedz1"
-        ],
-        "correctAnswer": 0
-    },
-    {
-        "question": "Stolica Polski to? ",
-        "choices": [
-            "Krakow",
-            "Skrobow",
-            "Warszawa",
-            "Niestety Warszawa"
-        ],
-        "correctAnswer": 3
-    }
+[        
+{
+    "question": "Complete this phrase. As sick as a...", 
+    "choices": ["Penguin", "Parrot", "Puffin", "Partridge"], 
+    "correctAnswer": 0
+},
+{
+    "question": "Which legal document states a person's wishes regarding the disposal of their property after death?", 
+    "choices": ["Will", "Shall", "Would", "Should"], 
+    "correctAnswer": 0
+},
+{
+    "question": "Complete the title of the James Bond film The Man With The Golden...", 
+    "choices": ["Eagle", "Tooth", "Delicious", "Gun" ], 
+    "correctAnswer": 3
+},
+{
+    "question": " In which sport do two teams pull at the opposite ends of a rope?", 
+    "choices": ["Ice hockey", "Basketball", "Tug of war", "Polo"], 
+    "correctAnswer": 2
+}
 ]
