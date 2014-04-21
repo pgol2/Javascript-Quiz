@@ -1,6 +1,5 @@
 * {
-  box-sizing: border-box;
-  transition: all 1s ease 0s;
+    box-sizing: border-box;
 }
 body {
 font-size: 22px;
