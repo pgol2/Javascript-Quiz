@@ -3,14 +3,23 @@
 
 $(document).ready(function() {
 
-    var promise = $.getJSON("questions.json");
-    promise.done(function (data) {
+    $.getJSON("questions.json")
+
+    .done(function (data) {
         Quiz.init({
             source: $('#quizMain').html()
             , allQuestions: data
             , container: $('.container')
             , statusBar: $('.bar')
         });
+    })
+
+    .fail(function() {
+        $('#wrapper').html("<p> Filed to load JSON ! </p>")
+    })
+
+    .always(function () {
+        console.log("this is allways callback");
     });
 });
 
